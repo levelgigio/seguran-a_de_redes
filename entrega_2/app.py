@@ -2,6 +2,12 @@ import os.path
 import hashlib
 from datetime import datetime
 
+SALT = "abc123"
+
+
+def add_salt(string):
+    return f"{string}{SALT}"
+
 
 def user_exists(username):
     if os.path.isfile(f"{username}.txt"):
@@ -31,7 +37,7 @@ def get_passwords_hash(username):
 def remove_used_tokens(tokens, used_token):
     used = 0
     valid_tokens = tokens.copy()
-    for token in reversed(tokens):
+    for token in tokens:
         if token == used_token or used == 1:
             valid_tokens.remove(token)
             used = 1
